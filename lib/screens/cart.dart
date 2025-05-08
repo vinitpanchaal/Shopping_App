@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../models/item.dart';
+import '../models/cart_item.dart';
 
 class CartScreen extends StatefulWidget {
-  final List<Item> cart;
+  final List<CartItem> cart;
 
   CartScreen({required this.cart});
 
@@ -11,7 +11,7 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  Map<Item, int> itemCounts = {};
+  Map<CartItem, int> itemCounts = {};
 
   @override
   void initState() {
@@ -21,19 +21,20 @@ class _CartScreenState extends State<CartScreen> {
     }
   }
 
-  void increment(Item item) {
+  void increment(CartItem item) {
     setState(() {
       itemCounts[item] = itemCounts[item]! + 1;
     });
   }
 
-  void decrement(Item item) {
+  void decrement(CartItem item) {
     setState(() {
       if (itemCounts[item]! > 1) {
         itemCounts[item] = itemCounts[item]! - 1;
       } else {
         itemCounts.remove(item);
-        widget.cart.removeWhere((cartItem) => cartItem == item);
+        widget.cart.removeWhere((cartItem) =>
+        cartItem.item.name == item.item.name && cartItem.size == item.size);
       }
     });
   }
@@ -52,12 +53,12 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     double total = itemCounts.entries
-        .map((e) => e.key.price * e.value)
+        .map((e) => e.key.item.price * e.value)
         .fold(0, (prev, amount) => prev + amount);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Cart'),
+        title: Text('Your Bag'),
         actions: [
           IconButton(
             icon: Icon(Icons.delete_forever),
@@ -73,21 +74,23 @@ class _CartScreenState extends State<CartScreen> {
           Expanded(
             child: ListView(
               children: itemCounts.entries.map((entry) {
+                final cartItem = entry.key;
+                final quantity = entry.value;
                 return ListTile(
-                  leading: Image.asset(entry.key.image, width: 50, height: 50, fit: BoxFit.cover),
-                  title: Text(entry.key.name),
-                  subtitle: Text('\$${entry.key.price.toStringAsFixed(2)} x ${entry.value}'),
+                  leading: Image.asset(cartItem.item.image, width: 50, height: 50, fit: BoxFit.cover),
+                  title: Text(cartItem.item.name),
+                  subtitle: Text("Size: ${cartItem.size} • \$${cartItem.item.price.toStringAsFixed(2)} x $quantity"),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
                         icon: Icon(Icons.remove),
-                        onPressed: () => decrement(entry.key),
+                        onPressed: () => decrement(cartItem),
                       ),
-                      Text('${entry.value}'),
+                      Text('$quantity'),
                       IconButton(
                         icon: Icon(Icons.add),
-                        onPressed: () => increment(entry.key),
+                        onPressed: () => increment(cartItem),
                       ),
                     ],
                   ),

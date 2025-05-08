@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/item.dart';
+import '../models/cart_item.dart';
 import '../widgets/item_card.dart';
 import 'cart.dart';
 import 'shoe_detail_screen.dart';
@@ -75,14 +76,16 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
   ];
 
-  final List<Item> cart = [];
+  final List<CartItem> cart = [];
 
-  void addToCart(Item item) {
+  void addToCart(CartItem item) {
     setState(() => cart.add(item));
   }
 
   @override
   Widget build(BuildContext context) {
+    final uniqueCartCount = cart.map((e) => '${e.item.name}_${e.size}').toSet().length;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Deals of the Day"),
@@ -99,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   setState(() {}); // Refresh UI after returning from cart
                 },
               ),
-              if (cart.toSet().length > 0) // show badge only if cart is not empty
+              if (uniqueCartCount > 0)
                 Positioned(
                   right: 8,
                   top: 8,
@@ -110,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       shape: BoxShape.circle,
                     ),
                     child: Text(
-                      '${cart.toSet().length}',
+                      '$uniqueCartCount',
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
@@ -143,7 +146,9 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: ItemCard(
               item: items[index],
-              onAdd: () => addToCart(items[index]),
+              onAdd: () => addToCart(
+                CartItem(item: items[index], size: "9"), // default size when added via quick add
+              ),
             ),
           ),
         ),
