@@ -54,21 +54,39 @@ git push -u origin main
 
 Screenshots
 
-•	🏠 Home Screen
+•	🏠 Home Screen (Emulator)
 
  ![alt text](image.png)
 
+ ![alt text](image-7.png)
+
 •	👟 Product Detail
 
- ![alt text](image-1.png)
+  Chrome (Web)
 
-•	🔢 Size & Quantity
+ ![alt text](image-8.png)
 
- ![alt text](image-2.png)
+  Android Emulator
 
-•	🛒 Cart Screen
+ ![alt text](image-9.png)
 
- ![alt text](image-3.png)
+•	🔢 Size & Quantity (Emulator)
+
+ ![alt text](image-10.png)
+
+ Chrome (Web)
+
+ ![alt text](image-11.png)
+
+•	🛒 Cart Screen 
+
+ Chrome (Web)
+
+ ![alt text](image-12.png)
+
+ Android Emulator
+
+ ![alt text](image-13.png)
 
 📄 License
 This project is licensed under the MIT License. You are free to:
