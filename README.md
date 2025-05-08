@@ -53,18 +53,23 @@ git remote add origin https://github.com/yourusername/flutter-shop-app.git
 git push -u origin main
 
 Screenshots
+
 •	🏠 Home Screen
+
  ![alt text](image.png)
 
 •	👟 Product Detail
+
  ![alt text](image-1.png)
 
-•	🔢 Size & Quantity 
+•	🔢 Size & Quantity
+
  ![alt text](image-2.png)
 
-•	🛒 Cart Screen 
+•	🛒 Cart Screen
+
  ![alt text](image-3.png)
- 
+
 📄 License
 This project is licensed under the MIT License. You are free to:
 •	Use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software
