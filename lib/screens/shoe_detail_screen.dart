@@ -111,16 +111,33 @@ class _ShoeDetailScreenState extends State<ShoeDetailScreen> with SingleTickerPr
                 SizedBox(height: 10),
                 SizedBox(
                   height: 100,
-                  child: ListView.builder(
+                  child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemCount: shoe.extraImages?.length ?? 0,
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    separatorBuilder: (_, __) => SizedBox(width: 12), // space between items
                     itemBuilder: (_, index) {
                       final img = shoe.extraImages![index];
                       return GestureDetector(
                         onTap: () => changeMainImage(img),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.asset(img, width: 80, height: 80, fit: BoxFit.cover),
+                        child: Container(
+                          width: 90,
+                          height: 90,
+                          padding: EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.deepOrange),
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(6),
+                            child: Image.asset(
+                              img,
+                              fit: BoxFit.cover,
+                              width: 80,
+                              height: 80,
+                            ),
+                          ),
                         ),
                       );
                     },
